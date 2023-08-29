@@ -35,5 +35,3 @@ This project requires that your machine has terraform installed and that zou hav
   terraform apply -auto-approve
   ```
 Once this is done the ec2 instance has been created and zou can log into it with the key found in this repository.
-- <i class="far fa-book-open"></i> [Terraform SG docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)
-- <i class="far fa-exclamation"></i> [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
