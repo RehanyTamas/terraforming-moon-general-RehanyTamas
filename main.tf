@@ -1,5 +1,3 @@
-
-
 terraform {
 
  required_providers {
@@ -10,6 +8,8 @@ terraform {
 
    }
 
+ }
+ 
  }
 
 provider "aws" {
@@ -128,14 +128,14 @@ resource "aws_route_table_association" "public_subnet_asso" {
 resource "aws_security_group" "rt-tf-sg" {
   name        = "rt-tf-sg"
   description = "rt sg block ingress"
-  vpc_id      = aws_vpc.main.vpc_id
+  vpc_id      = aws_vpc.main.id
   
   ingress {
   description = "SSH"
   from_port   = 22  # SSH client port is not a fixed port
   to_port     = 22
   protocol    = "tcp"
-  cidr_blocks      = ["217.65.104.98/32"]
+  cidr_blocks      = ["217.65.104.98/32", "86.59.194.64/32"]
 }
 
   egress {
@@ -153,7 +153,8 @@ resource "aws_instance" "ec2-tf" {
   vpc_security_group_ids = ["${aws_security_group.rt-tf-sg.id}"]
   key_name = "tf-moon"
   associate_public_ip_address = true
-  subnet_id = "${element(module.vpc.public_subnets, 0)}"
+  subnet_id = aws_subnet.public_subnets[0].id
+
   
   tags = {
     Name = "HelloWorld"
